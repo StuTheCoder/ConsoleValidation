@@ -1,9 +1,6 @@
-﻿﻿using System.Collections.Generic;
-using System;
-
-namespace ConsoleIOValidation
+namespace ConsoleValidation
 {
-    class Program
+    internal abstract class Program
     {
         /*
          * you can declare and initialize variables outside of methods. Note, that a variable must be static
@@ -12,7 +9,7 @@ namespace ConsoleIOValidation
          * if a variable is readonly, it can only be assigned in a constructor or directly like here
          * The type "List" is contained inside of the namespace "System.Collections.Generic"
          */
-        private readonly static List<string> games = new List<string>();
+        private static readonly List<string> Games = new List<string>();
 
         private static void Main(string[] args)
         {
@@ -23,11 +20,11 @@ namespace ConsoleIOValidation
             Program.PrintGameSelection();
 
             //the output of a method can directly be assigned to a variable
-            int gameIndex = Program.GetSelectedGame();
+            var gameIndex = Program.GetSelectedGame();
 
             //we get the value at the users selected index by using the indexer of our list:
             //Program.games[index]; note that an IndexOutOfRangeException is thrown if you try to access an invalid index (eg. less than 0)
-            string gameName = Program.games[gameIndex];
+            var gameName = Program.Games[gameIndex];
 
             //parameters are input in the same order as they are declared in the method-signature
             Program.PrintGameChoice(gameName);
@@ -48,11 +45,11 @@ namespace ConsoleIOValidation
              * that you write the class-name before the variable-name in order to give you more information about its context.
              * here we just add some entries to the games-dictionary
              */
-            Program.games.Add("The Wither 3 - Wild Hunt");
-            Program.games.Add("Baba is you");
-            Program.games.Add("Factorio");
-            Program.games.Add("Cities Skylines");
-            Program.games.Add("Kerbal space program");
+            Program.Games.Add("The Wither 3 - Wild Hunt");
+            Program.Games.Add("Baba is you");
+            Program.Games.Add("Factorio");
+            Program.Games.Add("Cities Skylines");
+            Program.Games.Add("Kerbal space program");
         }
 
         private static void PrintGameSelection()
@@ -65,10 +62,10 @@ namespace ConsoleIOValidation
              * coutner-variable is less than the current count of games in our previously defined list of games. If the condition is not met,
              * the counter-variable is incremented by one (i++) otherwise the loop is exited
              */
-            for(int i = 0; i < Program.games.Count; i++)
+            for(var i = 0; i < Program.Games.Count; i++)
             {
                 //We just print the index of the game and the name of it to the console
-                Console.WriteLine("[" + i + "]: " + Program.games[i]);
+                Console.WriteLine("[" + i + "]: " + Program.Games[i]);
             }
         }
 
@@ -77,20 +74,20 @@ namespace ConsoleIOValidation
         {
             //variables can be declared without assigning a value to it, this should only be done if you assign a value shortly afterwards
             int chosenIndex;
-            string choice;
+            string? choice;
             
             //a do-while-loop first enters its body, executes the contained code and afterwards checks the condition
             do
             {
                 //Note that in C# collections (array, list, dictionary, ...) start at the index 0, therefore the last index 
                 //is the length of the collection minus one
-                Console.Write("Please select a game by it's index-number (between 0 and " + (Program.games.Count - 1) + "): ");
+                Console.Write("Please select a game by it's index-number (between 0 and " + (Program.Games.Count - 1) + "): ");
                 choice = Console.ReadLine();
                 //Int32.TryParse is a method to check if a string is a number and if this is the case to put out the parsed value to the out-parameter-variable
                 //similar methods exist for double, bool, DateTime, and many others
                 //in order to prevent errors further on, we also check if the chosen index is a valid index of our list
                 //with the "!"-operator, the whole boolean-expression inside the parenthesis is negated
-            } while (!(Int32.TryParse(choice, out chosenIndex) && chosenIndex >= 0 && chosenIndex < Program.games.Count));
+            } while (!(Int32.TryParse(choice, out chosenIndex) && chosenIndex >= 0 && chosenIndex < Program.Games.Count));
 
             //the return-value of your custom method is returned via a return-statement:
             //return <value>;
