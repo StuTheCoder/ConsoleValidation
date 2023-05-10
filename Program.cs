@@ -1,7 +1,7 @@
 ﻿﻿using System.Collections.Generic;
 using System;
 
-namespace LunarDoggo.ConsoleIOValidation
+namespace ConsoleIOValidation
 {
     class Program
     {
